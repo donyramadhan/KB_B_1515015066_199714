@@ -1,0 +1,52 @@
+predicates 
+	nondeterm 
+	pagi(long,symbol,symbol) 
+	nondeterm
+	siang(long,symbol,symbol)
+	nondeterm
+	sore(long,symbol,symbol)
+	nondeterm
+	malam(long,symbol,symbol)
+	nondeterm
+	semua(long,symbol,symbol)
+	nondeterm
+	dugaan(symbol,symbol)
+clauses
+	pagi(01012017,tamancerdas,andre).
+	pagi(01022017,tamancerdas,budi).
+	pagi(01032017,tamancerdas,eko).
+	pagi(01042017,tamanpahlawan,fajar).
+	pagi(01032017,tamanpahlawan,arul).
+	siang(01012017,bigmall,bayu).
+	siang(01042017,bigmall,kiwa).
+	siang(01052017,bigmall,wahyu).
+	siang(01052017,toiletlembus,saputra).
+	siang(01042017,toiletlembus,prasetya).
+	sore(01062017,toiletlembus,vamilu).
+	sore(01012017,robinson,vandi).
+	sore(01042017,robinson,fegi).
+	sore(01082017,robinson,adam).
+	sore(01012017,robinson,nando).
+	malam(01022017,unmul,wili).
+	malam(01052017,unmul,rizki).
+	malam(01062017,toiletpoltek,yovan).
+	malam(01022017,polnes,aldi).
+	malam(01042017,polnes,dino).
+	malam(01082017,stikes,reza).
+	malam(01082017,stikes,samsul).
+	
+	semua(Kejadian,Lokasi,Tersangka):-
+	pagi(Kejadian,Lokasi,Tersangka);
+        siang(Kejadian,Lokasi,Tersangka);
+	sore(Kejadian,Lokasi,Tersangka);
+	malam(Kejadian,Lokasi,Tersangka).
+	
+	dugaan(pembunuhan,senjatatajam).
+	dugaan(pencurian,taskorban).
+	dugaan(penipuan,laptop).
+	dugaan(pelecehan,sidikjari).	
+goal
+	semua(Kejadian,Lokasi,Tersangka),
+	Kejadian=01062017,
+	dugaan(Kasus,Bukti),
+	Kasus=pelecehan.
