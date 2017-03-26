@@ -29,23 +29,24 @@ predicates
   suspect(name) - nondeterm (i)
 
 /* * * Facts about the murder * * */
-clauses 
-  person(bert,55,m,carpenter).
-  person(allan,25,m,football_player).
+clauses %% clause berisi tentang 
+  person(bert,55,m,carpenter).%% bert adalah seorang tukang kayu yang berusia 55 thn
+  person(allan,25,m,football_player).%%alan adalah seorang pemain sepak bola yang berusia 25 thn
   person(allan,25,m,butcher).
-  person(john,25,m,pickpocket).
+  person(john,25,m,pickpocket).%%jhon adalah seorag pencopet yang berusia 25 thn
 
-  had_affair(barbara,john).
-  had_affair(barbara,bert).
-  had_affair(susan,john).
+  had_affair(barbara,john).%%barbara berselingkuh dengan jhon
+  had_affair(barbara,bert).%%barbara berselingkuh dengan bert
+  had_affair(susan,john).%%susan berselingkuh dengan jhon
 
-  killed_with(susan,club).%% orang yang terbunuh
-  killed(susan).%% orang yang terbunuh
-
-  motive(money).%% motif-motif yang mendasari penyebab terjadinya pembunuhan
-  motive(jealousy).
+  killed_with(susan,club).%% susan terbunuh dengan pentungan
+  killed(susan).
+  
+%% motif-motif yang mendasari penyebab terjadinya pembunuhan
+  motive(money).
+   motive(jealousy).
   motive(righteousness).
-
+%%orang yang ternodai dengan darah,lumpur dan coklat
   smeared_in(bert,blood).
   smeared_in(susan,blood).
   smeared_in(allan,mud).
@@ -103,26 +104,22 @@ clauses
  * Suspect pickpockets whose motive could be money.  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-  suspect(X):-
-	motive(money),
-	person(X,_,_,pickpocket).
+  suspect(X):-%% X dicurigai apabila
+	motive(money),%%bermotivkan uang
+	person(X,_,_,pickpocket).%%X adalah pencopet
 
-  killer(Killer):- %% melacak data yang cocok dengan goal 
-	person(Killer,_,_,_),%%memanggil subgoal
-	killed(Killed),%%mencari siapa korban yang di bunuh
+  killer(Killer):- %% pembunuh dikatakan pembunuh apabila 
+	person(Killer,_,_,_),%dan orang tersebut adalah pembunuh
+	killed(Killed),%%jika orang tersebut pembunuh
 	Killed <> Killer, /* It is not a suicide */
-	suspect(Killer),%% mencari alasan yang di curigai sebagai pembunuh 
-	smeared_in(Killer,Goo),%%mencari orang yang ternodai dengan darah
+	suspect(Killer),%% pembunuh di curigai
+	smeared_in(Killer,Goo),%%pembunuh ternodai oleh zat
 	smeared_in(Killed,Goo).
 
 goal%% goal dari program ini adalah mencari siapa pelaku yang membunuh
   killer(X).
-  
-  %%langkah pertama program akan mengecek siapa korban yang terbunuh
-  %%dan pada langkah ke dua program akan mengecek siapa pelaku pembunuhan, setalah di cek ternyata bert adalah pelaku pembunuhan
-  %%lalu program melakukan pengecekan kembali pada bert
-  %%lalu pada kecurigaan pertama program akan mencari orang yang mempunyai alat berupa pentungan yang di gunakan sebagai alat untuk membunuh sang korban
-  %%ternyata bert mempunya tanda-tanda alt yang serupa dengan pentungan yaitu wooden_leg (kaki kayu)
-  %%dan program mengecek di tubuh yang terdapat noda darah
-  %%dan setelah di cek ternyata noda darah ada di tubuh bert dan susan, dan korban yang terbunuh adalah susan dan ternodai darah maka bert yang menjadi pembunuhnya di karenakan bert juga mempunyai noda yang sama
+  %%goal dari program adalah mencari siapa pelaku yang membunuh
+  %%pembunuhnya adalah bert
+  %%di karenakan pembunuhnya yang ternodai zat adalah bert
+  %%karena di goal yang di cari adalah pembunuh maka jawabannya adalah bert
   %%  kesimpulannya adalah Pembunuhan dari program yang di buat adalah bert , yang menjdikan korban bert adalah susan dikarenakan bert tidak memiliki uang dan juga kecemburuan sehingga menimbulkan dendam sehingga terjadi pembunuhan yang menelan korban jiwa 
